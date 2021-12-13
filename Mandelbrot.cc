@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -23,9 +25,12 @@ int mandelbrot(double real, double imag) {
 }
 
 int main() {
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
 	
-	int width = 379; //number of characters fitting horizontally on my screen 
-	int heigth = 98; //number of characters fitting vertically on my screen
+	int width = w.ws_col; //number of characters fitting horizontally on my screen 
+	int heigth = w.ws_row; //number of characters fitting vertically on my screen
 		
 	double x_start = -2.0;
 	double x_fin = 1.0;
